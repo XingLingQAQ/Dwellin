@@ -1,0 +1,5 @@
+emerald-shard:
+  id: PRISMARINE_SHARD
+  display: "&aEmerald Shard"
+  lore:
+    - "&7Shift+Right Click villager to refill his trades"

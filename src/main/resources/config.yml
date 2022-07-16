@@ -1,0 +1,107 @@
+#  >>>>>>>>>THANK YOU FOR DOWNLOADING DWELLIN<<<<<<<<<<
+
+# Sets the default value of the permission.
+# this will apply to all tweaks which have permissions
+# Valid values are;
+# TRUE: default will always grant the player the permission.
+# FALSE: default will not grant the player the permission.
+# OP: default will be true if the player is op.
+# NOT_OP: is the opposite behavior of op.
+default-permissions: TRUE
+
+# if set to true, permission checks will be made for modules involving players
+check-permissions: true
+
+
+# Iron golems healed by player will not longer attack them
+# Permission: dwellin.betterirongolem.use
+better-iron-golem:
+  enabled: false
+  black-list-worlds: []
+
+# Gives each villager a pre-defined name randomly chosen from list of 500 names present in names.yml
+# While in trading interface of a named villager its name plus profession can be configured in messages.yml but it REQUIRES ProtocolLib to function
+# Also works with already exsiting villagers but REQUIRES papermc or its fork to function
+villager-names:
+  enabled: false  
+  black-list-worlds: []
+
+# When a raid wave spawns all players involved in raid and with valid permissions will be displayed with the current wave count
+# The title message can be edited in messages.yml
+# Permissions:
+  # dwellin.wavedisplay: player with this permission will get to see the wave count 
+raid-wave-display:
+  enabled: false 
+  # the radius at which raids will be checked around player
+  raid-check-radius: 97
+  black-list-worlds: []
+
+# A death message will be broadcasted to all players with valid permission when a villager dies
+# the message can be configured in messages.yml
+# Also supports villager-names if enabled
+# Permissions: dwellin.villagerdeathmessage.notify
+villager-death-message:
+  enabled: false
+  black-list-worlds: []  
+
+# Adds some AI improvements to Illagers
+better-illager-ai:
+  enabled: false
+#  if set to true, pillagers will take few steps back till their cross bow is charged
+  hold-back-crossbow: false
+#  if enabled, pillagers have a chance of spawning with fireworks in their offhand and ability to use them
+  use-fireworks:
+    enabled: false
+    # chance to spawn with fireworks from 0.0 to 1.0
+    chance: 0.1
+    # maximum amount of fireworks a pillager can spawn with
+    max-amount: 10
+    # minimum to maximum number of color a firework can have
+    fireworkstar-modifier:
+      min: 3
+      max: 6
+    # colors of firework
+    colors: [GRAY,BLACK,WHITE]
+
+# Villagers will now follow player holding emerald, just like a cow follows wheat
+# Permissions: 
+  # dwellin.villagerfollowemerald: villagers will only follow player if player has this permission AND the temptation material
+villager-follow-emerald:
+  enabled: false
+  black-list-worlds: []
+  # list of materials that will make villager follow player, only works with those villagers which were spawned after making changes to this option
+  temptation-materials: [EMERALD_ORE,EMERALD_BLOCK,EMERALD,DEEPSLATE_EMERALD_ORE]
+  # The speed at which villager will follow player
+  speed: 0.6
+
+# Player can no longer get bad omen after killing a pillager captin,
+# instead to obtain the effect they need to ignite the ominous banner with flint and steel
+# Permissions:
+  # dwellin.controlledbadomen.burnbanner: player with this permission can burn the banner to obtain effect
+controlled-bad-omen:
+  enabled: false
+  black-list-worlds: []
+  # the max level of bad omen player can get
+  max-bad-omen-level: 5
+  # the burn time of banner when ignited (in ticks)
+  burn-time: 100
+  # when set to true, player will not get bad omen effect on killing patrol captain
+  prevent-bad-omen-from-captain: true
+  
+# On shift right clicking on villager, refills his trades
+# Permissions:
+  # dwellin.emeraldshard.use: permission to use this item on villager
+emerald-shard:
+  enabled: false
+  # when set to true, shard cant be used if villager's job site/block is unreachable to villager
+  require-job-site: true
+
+# Work in Progress
+#help-wanted-sign:
+#  enabled: false
+#  check-time: 23000
+#  villager-spawn-chance: 0.01
+#  block-speedup-additional-chance: 0.01
+#  block-check-radius: 3
+#  temptation-blocks: [EMERALD_BLOCK]
+#  head-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUwZTk1OTFlMTFhYWVmNGMyYzUxZDlhYzY5NTE0ZTM0MDQ4NWRlZmNjMmMxMmMzOGNkMTIzODZjMmVjNmI3OCJ9fX0=

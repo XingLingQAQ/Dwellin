@@ -1,0 +1,18 @@
+name: Dwellin
+version: ${project.version}
+main: com.github.sachin.dwellin.Dwellin
+api-version: 1.16
+api: []
+authors: [ sachingorkar ]
+softdepend: [ProtocolLib,Tweakin]
+description: Some changes and additions to villager and pillager family
+commands:
+  dwellin:
+    description: The core command for plugin
+
+permissions:
+  dwellin.command.*:
+    default: op
+    children:
+      dwellin.command.give: true
+      dwellin.command.reload: true

@@ -1,0 +1,12 @@
+prefix: "&e[&6Dwellin&e] "
+wave-display: "Wave %wave%/%totalwaves%"
+villager-trade-display: "%name% the %profession%"
+
+villager-death-message:
+  # %villager% being the name of villager specified in villager-trade-display above, if villager dosnt have a name it defaults to default-name below
+  # %world-type% being the dimension villager died
+  message: "&e%villager% has died! &r&6XYZ: %x%, %y%, %z% &ein %world-type%"
+  default-name: "Villager"
+  world-overworld: "&aOverworld"
+  world-nether: "&cNether"
+  world-end: "&dThe End"

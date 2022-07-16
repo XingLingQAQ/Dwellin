@@ -1,0 +1,6 @@
+emerald-shard:
+  1:
+    type: stonecutter
+    input: EMERALD
+    input-quantity: 1
+    output-quantity: 5
