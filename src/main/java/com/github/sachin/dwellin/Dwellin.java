@@ -8,10 +8,13 @@ import com.github.sachin.dwellin.utils.Message;
 import com.github.sachin.dwellin.utils.PermManager;
 import com.github.sachin.prilib.Prilib;
 import com.github.sachin.prilib.nms.AbstractNMSHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,10 +30,13 @@ public final class Dwellin extends JavaPlugin {
     public boolean isRunningPaper;
     public boolean isProtocolLibEnabled;
 
+
     public boolean isEnabled;
     private Items items;
     private ModuleManager moduleManager;
     private ConfigurationSection recipeFile;
+
+    private CommandManager commandManager;
     private Message messageManager;
 
 
@@ -101,7 +107,7 @@ public final class Dwellin extends JavaPlugin {
         // }
         this.moduleManager = new ModuleManager(plugin);
         moduleManager.load();
-        CommandManager commandManager = new CommandManager(plugin); 
+        this.commandManager = new CommandManager(plugin);
         getCommand("dwellin").setExecutor(commandManager);
         getCommand("dwellin").setTabCompleter(commandManager);
     }
@@ -119,11 +125,15 @@ public final class Dwellin extends JavaPlugin {
     }
 
 
-    public void reload(){
+    public void reload(CommandSender sender){
         this.items = new Items(this);
         updateRecipesFile();
         this.moduleManager.reload();
         this.messageManager = new Message();
+        if(sender instanceof Player){
+            sender.sendMessage(messageManager.getMessage("&aRegistered &e"+moduleManager.registeredModules+" &amodules successfully"));
+            sender.sendMessage(messageManager.getMessage("Reloaded Dwellin successfully"));
+        }
 
 
     }
@@ -192,4 +202,7 @@ public final class Dwellin extends JavaPlugin {
         return recipeFile;
     }
 
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
 }

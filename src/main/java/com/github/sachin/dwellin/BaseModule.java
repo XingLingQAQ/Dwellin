@@ -56,10 +56,14 @@ public abstract class BaseModule {
     }
 
     public boolean hasPermission(Player player, Permission perm){
-        if(getConfig().getBoolean("check-permissions",true)){
+        if(checkPermissions()){
             return player.hasPermission(perm);
         }
         return true;
+    }
+
+    public boolean checkPermissions(){
+        return plugin.getConfig().getBoolean("check-permissions",true);
     }
 
     public boolean isBlackListWorld(World world){

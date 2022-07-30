@@ -5,6 +5,7 @@ import com.github.sachin.dwellin.BaseItem;
 import com.github.sachin.dwellin.BaseModule;
 import com.github.sachin.dwellin.modules.controlledbadomen.ControlledBadOmen;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +28,18 @@ public class GiveCommand extends SubCommand{
     }
 
     @Override
+    public void execute(CommandSender sender, String[] args) {
+        giveItem(sender,args);
+    }
+
+
+
+    @Override
     public void execute(Player player, String[] args) {
+        giveItem(player,args);
+    }
+
+    private void giveItem(CommandSender sender,String[] args){
         if(args.length < 2) return;
         int amount = 1;
         if(args.length > 3){
@@ -36,21 +48,24 @@ public class GiveCommand extends SubCommand{
         Player target = Bukkit.getPlayer(args[1]);
         String itemName = args[2];
         if(target != null){
-
+            ItemStack item = null;
             for(BaseModule module : plugin.getModuleManager().getModuleList()){
                 if(module instanceof BaseItem && module.getName().equals(itemName)){
-                    ItemStack item = ((BaseItem)module).getItem();
-                    item.setAmount(amount);
-                    target.getInventory().addItem(item);
+                    item = ((BaseItem)module).getItem();
                     break;
                 }
             }
             if(itemName.equals("ominous_banner")){
-                ItemStack item = ControlledBadOmen.getOmoniousBanner();
+                item = ControlledBadOmen.getOmoniousBanner();
+            }
+            if(item != null){
                 item.setAmount(amount);
                 target.getInventory().addItem(item);
+                sender.sendMessage(plugin.getMessageManager().getMessage("&aGave &e"+target.getName()+" "+itemName+" &asuccessfully"));
+
             }
         }
+
     }
-    
+
 }

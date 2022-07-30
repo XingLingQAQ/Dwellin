@@ -12,12 +12,12 @@ public class ReloadCommand extends SubCommand{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        plugin.getModuleManager().reload();
+        plugin.reload(sender);
     }
 
     @Override
     public void execute(Player player, String[] args) {
-        plugin.reload();
+        plugin.reload(player);
     }
     
 }

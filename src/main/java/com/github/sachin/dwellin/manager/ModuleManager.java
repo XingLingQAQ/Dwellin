@@ -20,7 +20,10 @@ import java.util.List;
 public class ModuleManager {
 
     private Dwellin plugin;
+
     private List<BaseModule> moduleList = new ArrayList<>();
+
+    public int registeredModules;
 
 
     public ModuleManager(Dwellin plugin){
@@ -68,7 +71,8 @@ public class ModuleManager {
                 
             }
         }
-        plugin.getLogger().info("Registered "+registered+" modules successfully");
+        this.registeredModules = registered;
+        plugin.getLogger().info("Registered "+registeredModules+" modules successfully");
         if(unregister){
             plugin.getLogger().info("Dwellin reloaded successfully");
         }

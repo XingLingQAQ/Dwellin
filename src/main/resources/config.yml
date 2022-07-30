@@ -10,7 +10,8 @@
 default-permissions: TRUE
 
 # if set to true, permission checks will be made for modules involving players
-check-permissions: true
+# a server restart may be required for some features like villager follow emerald
+check-permissions: false
 
 
 # Iron golems healed by player will not longer attack them

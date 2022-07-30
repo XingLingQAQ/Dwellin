@@ -16,7 +16,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 public class VillagerDeathMessage extends BaseModule implements Listener{
     
     @EventHandler
-    @SuppressWarnings("deprecation")
     public void onVillagerDeath(EntityDeathEvent e){
         
         if(e.getEntity() instanceof Villager){
@@ -35,10 +34,10 @@ public class VillagerDeathMessage extends BaseModule implements Listener{
             }
             String name = getMessageManager().getMessageWithoutPrefix("villager-death-message.default-name");
             VillagerNames module = (VillagerNames) getModuleManager().getModuleFromName("villager-names");
-            if(module.registered){
+            if(module.registered ){
                 name = module.getVillagerName(villager);
             }
-            String message = getMessageManager().getMessage("villager-death-message.message")
+            String message = getMessageManager().getMessageWithoutPrefix("villager-death-message.message")
             .replace("%x%", String.valueOf(loc.getBlockX()))
             .replace("%y%", String.valueOf(loc.getBlockY()))
             .replace("%z%", String.valueOf(loc.getBlockZ()))
@@ -46,6 +45,7 @@ public class VillagerDeathMessage extends BaseModule implements Listener{
             .replace("%villager%", name);
             for(Player player : Bukkit.getOnlinePlayers()){
                 if(!hasPermission(player, PermManager.VILDEATHMSG)) continue;
+
                 player.sendMessage(message);
             }
         }

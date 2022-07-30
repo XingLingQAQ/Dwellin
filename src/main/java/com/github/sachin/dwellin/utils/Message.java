@@ -16,11 +16,11 @@ public class Message {
 
 
     public String getMessage(String key){
-        return ChatColor.translateAlternateColorCodes('&', CONFIG.getString("prefix","")+CONFIG.getString(key,""));
+        return ChatColor.translateAlternateColorCodes('&', CONFIG.getString("prefix","[Dwellin]")+CONFIG.getString(key,key));
     }
 
     public String getMessageWithoutPrefix(String key){
-        return ChatColor.translateAlternateColorCodes('&', CONFIG.getString(key,""));
+        return ChatColor.translateAlternateColorCodes('&', CONFIG.getString(key,key));
     }
     
 }

@@ -26,6 +26,7 @@ public class CommandManager implements CommandExecutor,TabCompleter{
     public void registerSubCommands(){
         subCommands.add(new GiveCommand());
         subCommands.add(new ReloadCommand());
+        subCommands.add(new HelpCommand());
         for(SubCommand sub : subCommands){
             commandList.add(sub.name);
         }
@@ -33,7 +34,13 @@ public class CommandManager implements CommandExecutor,TabCompleter{
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0) return false;
+        if(args.length == 0) {
+            HelpCommand helpCommand = (HelpCommand) getSubCommands().get(2);
+            if(sender.hasPermission(helpCommand.permission)){
+                helpCommand.sendHelp(sender);
+            }
+            return false;
+        }
         for(SubCommand sub : subCommands){
             if(args[0].equalsIgnoreCase(sub.name) && sender.hasPermission(sub.permission)){
                 
@@ -45,7 +52,12 @@ public class CommandManager implements CommandExecutor,TabCompleter{
                 }
             }    
         }
+
         return false;
+    }
+
+    public void sendHelp(CommandSender sender){
+
     }
 
 
@@ -78,5 +90,8 @@ public class CommandManager implements CommandExecutor,TabCompleter{
             return betterArgs;
         }
     }
-    
+
+    public List<SubCommand> getSubCommands() {
+        return subCommands;
+    }
 }
