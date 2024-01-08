@@ -6,15 +6,20 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.ComponentConverter;
+import com.comphenix.protocol.wrappers.ComponentParser;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.github.sachin.dwellin.Dwellin;
 import com.github.sachin.dwellin.utils.DConstants;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Villager;
 import org.bukkit.persistence.PersistentDataType;
+import org.json.simple.JSONArray;
 
 import java.util.UUID;
 
@@ -45,36 +50,38 @@ public class OpenWindowPacket extends PacketAdapter{
     public void onPacketSending(PacketEvent event) {
         PacketContainer packet = event.getPacket();
         WrappedChatComponent chat = packet.getChatComponents().read(0).deepClone();
-        JsonObject obj = GSON.fromJson(chat.getJson(), JsonObject.class);
-        if(obj.has("insertion")){
-            UUID uuid = UUID.fromString(obj.get("insertion").getAsString());
-            Entity en = Bukkit.getEntity(uuid);
-            if(en != null && en instanceof Villager && en.getCustomName() != null && en.getPersistentDataContainer().has(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER)){
-                Villager vil = (Villager) en;
-                String name = vil.getCustomName();
-                String profession = vil.getProfession().toString();
-                String finalName = null;
-                profession = profession.substring(0, 1).toUpperCase() + profession.substring(1).toLowerCase();
-                if(obj.has("extra")){
-                    JsonObject extra = obj.get("extra").getAsJsonArray().get(0).getAsJsonObject();
-                    extra.remove("text");
-                    finalName = instance.getMessageManager().getMessageWithoutPrefix("villager-trade-display")
-                    .replace("%name%", name)
-                    .replace("%profession%", profession);
-                    extra.addProperty("text", finalName);
-                }
-                else if(obj.has("text")){
-                    finalName = instance.getMessageManager().getMessageWithoutPrefix("villager-trade-display")
-                    .replace("%name%", name)
-                    .replace("%profession%", profession);
-                    obj.remove("text");
-                    obj.addProperty("text", finalName);
-                }
+        String jsonString = chat.getJson();
+        if(jsonString != null && jsonString.contains("{") && jsonString.contains("}")){
+            JsonObject obj = GSON.fromJson(jsonString, JsonObject.class);
+            if(obj.has("insertion")){
+                UUID uuid = UUID.fromString(obj.get("insertion").getAsString());
+                Entity en = Bukkit.getEntity(uuid);
+                if(en != null && en instanceof Villager && en.getCustomName() != null && en.getPersistentDataContainer().has(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER)){
+                    Villager vil = (Villager) en;
+                    String name = vil.getCustomName();
+                    String profession = vil.getProfession().toString();
 
-                if(finalName != null){
+                    profession = profession.substring(0, 1).toUpperCase() + profession.substring(1).toLowerCase();
+                    String finalName = instance.getMessageManager().getMessageWithoutPrefix("villager-trade-display")
+                            .replace("%name%", name)
+                            .replace("%profession%", profession);
+                    boolean replaced = false;
+                    if(obj.has("extra") && obj.get("extra").isJsonArray()){
+                        JsonArray newExtra = new JsonArray();
+                        newExtra.add(new JsonPrimitive(finalName));
+                        obj.add("extra",newExtra);
+                        obj.addProperty("text", "");
+                        replaced = true;
+                    }
+                    else if(obj.has("text") && !obj.has("extra")){
+                        obj.addProperty("text",finalName);
+                        replaced = true;
+                    }
+                    if(!replaced) return;
                     packet.getChatComponents().write(0, WrappedChatComponent.fromJson(obj.toString()));
                 }
             }
+
         }
     }
     
