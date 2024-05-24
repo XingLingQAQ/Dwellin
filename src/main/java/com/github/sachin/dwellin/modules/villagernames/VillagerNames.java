@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,23 +68,16 @@ public class VillagerNames extends BaseModule implements Listener{
         Entity entity = e.getEntity();
         if(isBlackListWorld(entity.getWorld())) return;
         if(entity instanceof Villager){
-            nameVillager(entity);
-            
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    if(!entity.isDead() && entity.getCustomName() == null){
+                        nameVillager(entity);
+                    }
+                }
+            }.runTaskLater(plugin,1);
+
         }
-        // if(entity instanceof Pillager){
-        //     ItemStack firework = new ItemStack(Material.FIREWORK_ROCKET,10);
-        //     ItemMeta meta = firework.getItemMeta();
-        //     FireworkMeta fireMeta = (FireworkMeta) meta;
-        //     FireworkEffect.Builder builder = FireworkEffect.builder();
-        //     builder.with(Type.BALL_LARGE);
-        //     builder.withColor(Color.RED);
-        //     builder.withColor(Color.GREEN);
-        //     builder.withColor(Color.YELLOW);
-        //     fireMeta.addEffect(builder.build());
-        //     firework.setItemMeta(fireMeta);
-        //     Pillager pil = (Pillager) entity;
-        //     pil.getEquipment().setItemInOffHand(firework);
-        // }
     }
 
     public void nameVillager(Entity entity){

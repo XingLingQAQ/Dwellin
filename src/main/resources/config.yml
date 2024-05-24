@@ -89,7 +89,7 @@ controlled-bad-omen:
   # when set to true, player will not get bad omen effect on killing patrol captain
   prevent-bad-omen-from-captain: true
   
-# On shift right clicking on villager, refills his trades
+# Enables player to refill a villager trade by shift right clicking on villager with this item in hand
 # Permissions:
   # dwellin.emeraldshard.use: permission to use this item on villager
 emerald-shard:
@@ -106,3 +106,12 @@ emerald-shard:
 #  block-check-radius: 3
 #  temptation-blocks: [EMERALD_BLOCK]
 #  head-texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUwZTk1OTFlMTFhYWVmNGMyYzUxZDlhYzY5NTE0ZTM0MDQ4NWRlZmNjMmMxMmMzOGNkMTIzODZjMmVjNmI3OCJ9fX0=
+
+# Enables player to pick up villagers by shift-right clicking with an empty hand,
+# once picked up, the villager will become a item and can be placed in world by shift right clicking on a block
+# Permissions:
+#  dwellin.easyvillagerpickup.pickup: permission to pick up a villager
+#  dwellin.easyvillagerpickup.place: permission to place down a villager using the item
+easy-villager-pickup:
+  enabled: false
+  black-list-worlds: []

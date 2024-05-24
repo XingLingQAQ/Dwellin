@@ -3,3 +3,12 @@ emerald-shard:
   display: "&aEmerald Shard"
   lore:
     - "&7Shift+Right Click villager to refill his trades"
+
+easy-villager-pickup:
+  id: VILLAGER_SPAWN_EGG
+  display: '&aVillager %villager_name%'
+  lore:
+    - '&7Profession: &6%villager_profession/Unemployed%'
+    - '&7Shift Right Click on block to place the Villager'
+  options:
+    enchanted: true

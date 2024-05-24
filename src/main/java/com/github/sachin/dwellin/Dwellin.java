@@ -42,8 +42,6 @@ public final class Dwellin extends JavaPlugin {
 
     private Prilib prilib;
     private AbstractNMSHandler nmsHandler;
-    private String mcVersion;
-
     private List<Permission> perms;
 
 
@@ -64,7 +62,6 @@ public final class Dwellin extends JavaPlugin {
         } catch (ClassNotFoundException e) {
             this.isRunningPaper = false;
         }
-        this.mcVersion = plugin.getServer().getClass().getPackage().getName().split("\\.")[3];
         this.prilib = new Prilib(this);
         this.prilib.initialize();
         if(!prilib.isNMSEnabled()){

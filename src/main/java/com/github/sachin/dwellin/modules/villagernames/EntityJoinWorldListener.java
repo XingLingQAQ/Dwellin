@@ -7,6 +7,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class EntityJoinWorldListener implements Listener{
 
@@ -20,14 +21,22 @@ public class EntityJoinWorldListener implements Listener{
     public void onEntityJoin(EntityAddToWorldEvent e){
         Entity entity = e.getEntity();
         if(!(entity instanceof Villager)) return;
-        if(!entity.getPersistentDataContainer().has(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER)){
-            if(entity.getCustomName() == null){
-                instance.nameVillager(entity);
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                if(!entity.isDead()){
+                    if(!entity.getPersistentDataContainer().has(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER)){
+                        if(entity.getCustomName() == null){
+                            instance.nameVillager(entity);
+                        }
+                        else{
+                            entity.getPersistentDataContainer().set(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER, 1);
+                        }
+                    }
+                }
+
             }
-            else{
-                entity.getPersistentDataContainer().set(DConstants.VILLAGER_NAMED_KEY, PersistentDataType.INTEGER, 1);
-            }
-        }
+        }.runTaskLater(instance.getPlugin(), 1);
     }
     
 }

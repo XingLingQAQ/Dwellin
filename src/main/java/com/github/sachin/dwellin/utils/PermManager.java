@@ -21,4 +21,7 @@ public class PermManager extends AbstractPermManager {
     public static final Permission CONTROLLEDBADOMEN = get("dwellin.controlledbadomen");
     public static final Permission EMERALD_SHARD = get("dwellin.emeraldshard");
 
+    public static final Permission VILLAGER_PICKUP = get("dwellin.easyvillagerpickup.pickup");
+    public static final Permission VILLAGER_PLACE = get("dwellin.easyvillagerpickup.place");
+
 }

@@ -5,6 +5,7 @@ import com.github.sachin.dwellin.Dwellin;
 import com.github.sachin.dwellin.modules.betterirongolem.BetterIronGolemModule;
 import com.github.sachin.dwellin.modules.betterillagerai.BetterIillagerAI;
 import com.github.sachin.dwellin.modules.controlledbadomen.ControlledBadOmen;
+import com.github.sachin.dwellin.modules.items.easyvillagerpickup.EasyVillagerPickup;
 import com.github.sachin.dwellin.modules.items.emeraldshard.EmeraldShardItem;
 import com.github.sachin.dwellin.modules.raidwavedisplay.RaidWaveDisplay;
 import com.github.sachin.dwellin.modules.villagerdeathmessage.VillagerDeathMessage;
@@ -93,6 +94,7 @@ public class ModuleManager {
             moduleList.add(new VillagerFollowEmerald());
             moduleList.add(new ControlledBadOmen());
             moduleList.add(new EmeraldShardItem());
+            moduleList.add(new EasyVillagerPickup());
 //            moduleList.add(new HelpWantedSignModule());
             // moduleList.add(new RideableRavager());
         }

@@ -39,6 +39,7 @@ public class BaseItem extends BaseModule{
     }
 
     public boolean isSimilar(ItemStack item){
+        if(item == null) return false;
         return ItemBuilder.hasKey(new FastItemStack(item),getName());
     }
     
