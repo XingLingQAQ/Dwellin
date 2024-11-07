@@ -11,13 +11,13 @@ import java.lang.reflect.Method;
 public class PaperUtils {
 
 
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
     public static void removeHurtByTarget(IronGolem golem){
         Method method;
         try {
             
             method = Class.forName("org.bukkit.Bukkit").getMethod("getMobGoals");
-            ((MobGoals)method.invoke(null)).removeGoal(((Creature)golem), VanillaGoal.HURT_BY_TARGET);
+            ((MobGoals)method.invoke(null)).removeGoal(((Creature)golem), VanillaGoal.HURT_BY);
         } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
